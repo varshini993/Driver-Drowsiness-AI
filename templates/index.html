@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Driver Drowsiness Detection</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">
+        AI DRIVER DROWSINESS DETECTION SYSTEM
+    </div>
+
+    <div class="dashboard">
+
+        <!-- VIDEO -->
+        <div class="video-section">
+
+            <img src="{{ url_for('video') }}">
+
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="analytics">
+
+            <div class="card">
+                <h2>Driver Status</h2>
+
+                <div class="status" id="status">
+                    ACTIVE
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Fatigue Score</h2>
+
+                <div class="score" id="fatigue">
+                    10%
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>AI Monitoring</h2>
+
+                <p>✔ Eye Tracking Active</p>
+
+                <p>✔ Face Mesh Active</p>
+
+                <p>✔ Yawning Detection Active</p>
+
+                <p>✔ Alarm System Active</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function updateData(){
+
+    const response = await fetch('/driver_data')
+
+    const data = await response.json()
+
+    document.getElementById('status').innerText = data.status
+
+    document.getElementById('fatigue').innerText =
+        data.fatigue_score + "%"
+}
+
+setInterval(updateData, 1000)
+
+</script>
+
+</body>
+</html>
